@@ -138,14 +138,11 @@ def build_model(maxlen, chars):
 	# Building the model
 	print('Building model...')
 	model = Sequential()
-	model.add(LSTM(256, input_shape=(maxlen, len(chars)), return_sequences=True)) # might have problems if fed a shorter tweet than maxlen
-	model.add(Dropout(0.2))
-	model.add(LSTM(256))
-	model.add(Dropout(0.2))
+	model.add(LSTM(128, input_shape=(maxlen, len(chars)))) # might have problems if fed a shorter tweet than maxlen?
 	model.add(Dense(len(chars)))
 	model.add(Activation('softmax'))
 
-	optimizer = RMSprop(lr=0.001) # experiment by adding ReduceLROnPlateau
+	optimizer = RMSprop(lr=0.01) # experiment by adding ReduceLROnPlateau
 	model.compile(loss='categorical_crossentropy', optimizer=optimizer)
 
 	return model
