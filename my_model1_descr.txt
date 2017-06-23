@@ -1,0 +1,29 @@
+my_model1 descriptions:
+
+- Single LSTM layer with 128 nodes
+- One Dropout of 0.2 between the LSTM layer and the Dense layer
+- Run for 30 epochs with batch_size of 128
+- Loss was still going down and stopped at 1.3855
+- Maxlen was 10, this seemed to work better than expected
+    - Worried maybe that the spelling is better but forming coherent sentences is not
+- Most likely will continue to train
+
+my_model2:
+
+- after training my_model1 for an additional 30 epochs, it suddenly got hype at epoch 26 and dropped fast
+    - I suspect the ReduceLROnPlateau kicked in
+    - I am going to continue to run, but now starting with the lr at 0.002 (0.01 * 0.2)
+        - scratch that, the model must save the lr so I just continued with the fitting
+- training ended with loss at 1.0625
+- new idea for tonight/tomorrow: get a random sample of tweets and then count up the most used phrase
+    - ex. 'the failing @nytimes'
+
+my_model3:
+
+- Okay, so I realized that all tweets under 30 chars where only being represented by one character...botch
+- I suppose I can load the saved model and run it with the better data
+    - update: didn,t need to load_model because I just affected X and y which can just be passed to the current model
+- Now we are at 90 epochs, loss at 0.9033
+    - not sure if I should be worried about overfitting or not...nahhh
+- Model to run tonight: maxlen = 40, and two LSTM layers
+    - Hopefully spell correctly AND form more coherent sentences
